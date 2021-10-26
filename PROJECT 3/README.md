@@ -1,12 +1,10 @@
 # Codes and plots for PROJECT 3<br>
 
-paste all of the .hpp and the .cpp files into one folder, then <br>
-compile the code with the following command on UNIX terminal:<br>
 
-to compile the code for simulation WITHOUT oscillating electric field:<br>
-g++ main9.cpp Particle.cpp PenningTrap9.cpp -larmadillo -o prob9.exe<br>
+build command for simulation WITHOUT oscillating electric field:<br>
+g++ main9.cpp src/Particle.cpp src/PenningTrap9.cpp -I include/ -larmadillo -o prob9.exe<br>
 to compile the code for simulation WITH oscillating electric field:<br>
-g++ main10.cpp Particle.cpp PenningTrap10.cpp -larmadillo -o prob10.exe<br>
+g++ main9.cpp src/Particle.cpp src/PenningTrap10.cpp -I include/ -larmadillo -o prob10.exe<br>
 
 execute the program with the following command line arguments:<br>
 
