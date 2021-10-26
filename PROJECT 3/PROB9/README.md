@@ -36,7 +36,8 @@ In order to make plots we have 3 python scripts: <br><br>
  	allows to compare results for 2 particles, when coulomb interactions are switched on/off<br>
  	paste your script into a folder, then organize your output as follows:<br>
  	paste the data with c-int turned off into yourfolder/N/experiment_1<br>
- 	paste the data with c-int turned on into yourfolder/N/experiment_2<br><br>
+ 	paste the data with c-int turned on into yourfolder/N/experiment_2<br>
+	N must be an integer, allows to organize multiple simulation data.<br><br>
  	
  	simple_zplot.py<br>
  	a very short script, run it in the same folder where you have your (one) output file. Plots<br>
