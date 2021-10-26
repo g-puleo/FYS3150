@@ -19,7 +19,7 @@ The program output are some .csv files organized as follows:<br><br>
 	"PenningData_algo_X_N.csv": contains data related to the trajectory of particle N. The label X is a letter between "ABCDE", <br>
 	each of the labels corresponds to a certain value of h (the first you set will have the label A and so on)<br>
 	output has 7 columns: elapsed_time; x ; y; z; v_x; v_y; v_z ;<br><br>
-	"r_ana_X.csv": this output is turned on only if you set the flag analytical_prediction to be true in main.cpp,<br>
+	"r_ana_N.csv": this output is turned on only if you set the flag analytical_prediction to be true in main.cpp,<br>
 	and run the code with the coulomb interactions turned off. Contains analytical predictions for each of the particles. <br>
 	output has 6 columns: elapsed_time; x; y; z; relative_error; absolute_error <br><br><br>
 	
