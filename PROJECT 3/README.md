@@ -4,7 +4,7 @@
 build command for simulation WITHOUT oscillating electric field:<br>
 g++ main9.cpp src/Particle.cpp src/PenningTrap9.cpp -I include/ -larmadillo -o prob9.exe<br>
 to compile the code for simulation WITH oscillating electric field:<br>
-g++ main9.cpp src/Particle.cpp src/PenningTrap10.cpp -I include/ -larmadillo -o prob10.exe<br>
+g++ main10.cpp src/Particle.cpp src/PenningTrap10.cpp -I include/ -larmadillo -o prob10.exe<br>
 
 execute the program with the following command line arguments:<br>
 
