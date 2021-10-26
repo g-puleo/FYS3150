@@ -1,4 +1,4 @@
-#include "PenningTrap.hpp"
+#include "PenningTrap10.hpp"
 static const double K_e = 1.38935333e5;
 //constructor
 PenningTrap::PenningTrap(double B0_in, double V0_in, double d_in)
@@ -10,9 +10,9 @@ PenningTrap::PenningTrap(double B0_in, double V0_in, double d_in)
   N_ = 0;
   coul_int_ = true; //by default , turns on coulomb interactions
   oscil_E_field_ = false; //by default, turns of oscillations in the electric field
-  frequency_ = 0.0; 
+  frequency_ = 0.0;
   amplitude_ = 0.0;
-  elapsed_time_ = 0.0;  
+  elapsed_time_ = 0.0;
 }
 
  //adds a particle at the end of the "Particles_" vector
@@ -25,20 +25,20 @@ void PenningTrap::add_particle(Particle p_in)
 
 //evaluates E at x=r(1), y=r(2), z=r(3)
 arma::vec PenningTrap::ext_E_field( arma::vec r)
-{	
+{
 	arma::vec f = {r(0), r(1), -2.0*r(2)};
 	// if outside of sphere, then the electric field be set to zero
-	double gradientV; 
+	double gradientV;
 	if (norm(r)>d_) {
-		gradientV = 0.0; 
+		gradientV = 0.0;
 	}
 	// if there are oscillations in E-field
 	else if (oscil_E_field_) {
-		gradientV = V0d2_*(1+amplitude_*cos(frequency_*elapsed_time_)); 
+		gradientV = V0d2_*(1+amplitude_*cos(frequency_*elapsed_time_));
 	}
 	// no oscillations in E-field
 	else {
-		gradientV = V0d2_; 
+		gradientV = V0d2_;
 	}
   	return gradientV*f ;
 }
@@ -48,7 +48,7 @@ arma::vec PenningTrap::ext_B_field ( arma::vec r)
 {
 	// if particle is outside of Penning trap
 	if (norm(r)>d_) {
-		return {0.0, 0.0, 0.0}; 
+		return {0.0, 0.0, 0.0};
 	}
 	// if the particle is in the trap
 	else {
@@ -243,10 +243,10 @@ void PenningTrap::trapInfo ( std::string algo )
     std::cout << "Coulomb interactions: on" << std::endl;
   else
     std::cout << "Coulomb interactions: off" <<std::endl;
-  if (oscil_E_field_) 
-    std::cout << "Oscillating electric field: on" << std::endl; 
-  else 
-    std::cout << "Oscillating electric field: off" << std::endl; 
+  if (oscil_E_field_)
+    std::cout << "Oscillating electric field: on" << std::endl;
+  else
+    std::cout << "Oscillating electric field: off" << std::endl;
   std::cout << "Number of particles: " << N_ << std::endl;
   std::cout << "B0 = " << B0_ << std::endl;
   std::cout << "V0 = " << V0_ << std::endl;
@@ -254,14 +254,14 @@ void PenningTrap::trapInfo ( std::string algo )
   return;
 }
 
-int PenningTrap::countParticles( void ) 
+int PenningTrap::countParticles( void )
 {
-	int count = 0; 
+	int count = 0;
 	for (int i=0; i<N_; i++) {
 		arma::vec position = Particles_[i].position();
 		if (norm(position)<d_) {
-			count ++; 
-		} 
+			count ++;
+		}
 	}
-	return count; 
+	return count;
 }

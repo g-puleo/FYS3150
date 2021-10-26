@@ -5,7 +5,7 @@
 #include<string>
 #include<unistd.h>
 #include "Particle.hpp"
-#include "PenningTrap.hpp"
+#include "PenningTrap9.hpp"
 using namespace std;
 using namespace arma;
 int main (int argc, char* argv[]) {

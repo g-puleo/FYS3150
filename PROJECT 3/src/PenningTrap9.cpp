@@ -1,4 +1,4 @@
-#include "PenningTrap.hpp"
+#include "PenningTrap9.hpp"
 static const double K_e = 1.38935333e5;
 //constructor
 PenningTrap::PenningTrap(double B0_in, double V0_in, double d_in)
