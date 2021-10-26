@@ -28,8 +28,11 @@ The program output are some .csv files organized as follows:<br><br>
 	"r_ana_N.csv": this output is turned on only if you set the flag analytical_prediction to be true in main.cpp,
 	and run the code with the coulomb interactions turned off. Contains analytical predictions for each of the particles. 
 	output has 6 columns: elapsed_time; x; y; z; relative_error; absolute_error <
+	"PD_algo_AMP_amplitudeindex.csv": contains the number of particles remaining in trap after simulation run for each 
+	frequency. Headers: Frequency; N;, where the Frequency column holds frequencies of the applied perturbation in the 
+	electric field, and the N column holds the number of particles remaining in trap. 
 	
-In order to make plots we have 3 python scripts: <br><br>
+In order to make plots we have 4 python scripts: <br><br>
 	
  	comparison.py
  	allows to make a comparison between the analytical solution and the numerical one
@@ -48,6 +51,12 @@ In order to make plots we have 3 python scripts: <br><br>
  	simple_zplot.py
  	a very short script, run it in the same folder where you have your (one) output file. Plots
  	only the motion along the z-axis.
+ 	
+ 	plot_particles_left.py
+ 	this script needs to be in the same folder as output files. Script where you need to 
+ 	modify the arguments for the filenames to suit your needs. Plots the fraction of a 
+ 	simulation run with 100 particles against frequency. Can also plot a chosen number of
+ 	trajectories of these simulation runs. 
  	
  	
  	
