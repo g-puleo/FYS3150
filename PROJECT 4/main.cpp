@@ -31,14 +31,14 @@ int main (int argc, const char* argv[])
 //   cout << p_ratio[jj] << endl;
 // }
   int N = L*L; //total number of spins
-  bool order = true; //if true, starts from an ordered grid (max energy, improbable state)
+  bool order = false; //if true, starts from an ordered grid (max energy, improbable state)
   Lattice l1 = Lattice(L, order); //initialize one lattice
   cout << "Initial state of grid : \n" << l1.spin_grid_(span(0,L-1), span(0,L-1)) << endl;
 //initialize variables to store various quantities
   double e_avg = 0.0;
   double m_avg = 0.0;
-  double e2_avg = 0.0;
-  double m2_avg = 0.0;
+  double E2_avg = 0.0;
+  double M2_avg = 0.0;
   double Cv = 0.0;
   double chi = 0.0;
   //temp is an array containing the temperature, used to ouptut file with proper name
@@ -52,6 +52,7 @@ int main (int argc, const char* argv[])
 //finally create the string containing name of output file
   string filename = "LatticeData_" + to_string(L) + "_" + string(temp) + "_" + ordlabel + ".csv";
   ofstream outputf;
+  cout << "Writing output to " << filename << endl;
   outputf.open(filename);
   outputf << "cycles,average energy, average magnetization, specific heat, susceptibility, energy,magnetization" << endl;
   for (int j=0; j<N_MC_cycles; j++){
@@ -61,11 +62,11 @@ int main (int argc, const char* argv[])
           e_avg = (double) ( e_avg*(j) + ((double) l1.E_/N)  )  /   (double)  (j+1) ;
           m_avg = (double) ( m_avg*(j) + ((double) abs(l1.M_)/N)  )  /  (double) (j+1);
 
-          e2_avg =  (double)(e2_avg*(j) + pow(((double) l1.E_), 2.0) )  /   (double) (j+1);
-          m2_avg =  (double)(m2_avg*(j) + pow(((double) l1.M_), 2.0) )  /  (double)(j+1);
+          E2_avg =  (double)(E2_avg*(j) + pow(((double) l1.E_), 2.0) )  /   (double) (j+1);
+          M2_avg =  (double)(M2_avg*(j) + pow(((double) l1.M_), 2.0) )  /  (double)(j+1);
 
-          Cv = ( e2_avg - N*N*e_avg*e_avg ) / (T*T);
-          chi = (m2_avg - N*N*m_avg*m_avg) / (T);
+          Cv = ( E2_avg - N*N*e_avg*e_avg ) / (N*T*T);
+          chi = (M2_avg - N*N*m_avg*m_avg) / (N*T);
           //output to file
           outputf << setprecision(8) << j+1 << "," << e_avg << "," << m_avg << ","
                   << Cv << "," << chi << "," << l1.E_ << "," << l1.M_ << endl;
