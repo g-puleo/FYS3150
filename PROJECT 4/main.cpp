@@ -29,9 +29,9 @@ int main (int argc, const char* argv[])
   int L = atoi(argv[2]);
   //double T = atof(argv[3]);      //uncomment if temperature is input
 
-  double T_start = 2.1;
-  double T_end = 2.4;
-  int N_T =15;
+  double T_start = 2.25;
+  double T_end = 2.35;
+  int N_T =50;
   vec T_array = vec (N_T+1);
   for (int i=0; i<N_T+1; i++) {
   	T_array(i) = T_start + (T_end-T_start)/N_T*i;
