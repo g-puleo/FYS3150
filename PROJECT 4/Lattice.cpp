@@ -1,16 +1,13 @@
 #include"Lattice.hpp"
-#include<cstdlib>
-#include<iostream>
-#include<cmath>
-#include<random>
-#include<string>
 //initialize a global object "distribution" (want to sample random numbers in the interval [0,1])
-std::default_random_engine generator;
-std::uniform_real_distribution<double> unif_01(0.0,1.0);
+std::mt19937 generator;
+std::uniform_real_distribution<double>unif_01(0.0,1.0);
+
 //constructor : L_in is the length of one row (or one column)
-Lattice::Lattice( int L_in , bool order)
+Lattice::Lattice( int L_in , bool order, int seed_)
 {
-  srand(time(NULL)); //seeding the random number generator
+
+  generator.seed(seed_);
   //store the length of one row:
   L_ = L_in;
   //initialize the spin grid to be a matrix L_in+1 x L_in+1
@@ -21,9 +18,8 @@ Lattice::Lattice( int L_in , bool order)
   {
     for(int j=0; j<L_; j++)
     {
-      r = rand()%2;
+      r = generator()%2;
       spin_grid_(i,j)=2*r-1; //this serves to select randomly between 1 and -1
-
     }
    }
   }
@@ -89,14 +85,15 @@ void Lattice::evolve_Metropolis( const double* delta )
    {
         //start generating two random numbers (aka a position in the grid)
 
-        int k = rand()%L_;
-        int j = rand()%L_;
+        int k = generator()%L_;
+        int j = generator()%L_;
         // std::cout << "trying to flip spin " << k << ", " << j << std::endl;
         // std::cout << "current state of the grid:\n" << spin_grid_ << "\n\n" << std::endl;
         //then try to flip the (k,j) spin
         spin_grid_(k,j)*=-1;
         //find the contribution to the total energy due to the final configuration around the flipped spin
         int final_E_count = 0;
+
           for(int h1 = -1 ; h1<2; h1+=2)
           {
             int a=k+h1; //if the random generated position in the grid belongs to the first row (or column)
@@ -109,6 +106,7 @@ void Lattice::evolve_Metropolis( const double* delta )
             //use -= because energy is defined with a minus sign in front of the sum
               final_E_count-= spin_grid_(k,b)+spin_grid_(a, j);
             }
+
         final_E_count*=spin_grid_(k,j);
         //final_E_count has now 5 different possible values {-4 -2 0 2 4}
         //each of them corresponds to energy changes DeltaE = {-8 -4 0 4 8}
@@ -123,7 +121,7 @@ void Lattice::evolve_Metropolis( const double* delta )
         //x = 2  ----> f(x) = 3
         //x = 4  ----> f(x) = 4
         double A = delta[ 2+ final_E_count/2]; //ratio p(s-new)/p(s-old)
-        double r = unif_01( generator ) ;  //random number between 0 and 1
+        double r = unif_01(generator);  //random number between 0 and 1
         // std::cout << "random pick in (0,1): " << r << std::endl;
         // std::cout << "X = 2+ final_E_count/2 = "  << 2+ final_E_count/2 << "\n" << std::endl;
         // std::cout << "A = p_ratio[X] = " << A << std::endl;

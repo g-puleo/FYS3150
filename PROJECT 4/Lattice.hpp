@@ -10,7 +10,7 @@ public:
   int L_; //  number of spins
   int E_; //total energy
   int M_; //total magnetization
-  Lattice(int L_in, bool ord); //constructor
+  Lattice(int L_in, bool ord, int seed_in); //constructor
 
   //funcitons which computes for you the total energy and the magnetization
   double tot_energy( void );
