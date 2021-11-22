@@ -1,4 +1,4 @@
-#CODES AND PLOTS FOR PROJECT 4<br>
+# CODES AND PLOTS FOR PROJECT 4<br>
 This repository hosts files related to the simulation of a 2D spin lattice using the Ising Model and<br>
 a Markov chain Monte Carlo algorithm.<br<br>
 
