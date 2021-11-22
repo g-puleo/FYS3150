@@ -15,6 +15,7 @@ public:
   //funcitons which computes for you the total energy and the magnetization
   double tot_energy( void );
   double tot_magnetization( void );
+  //this funciton is the actual Metropolis algorithm. Takes as input the ratios of probabilities p(s')/p(s_i)
   void evolve_Metropolis( const double* );
 };
 
