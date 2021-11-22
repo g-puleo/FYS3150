@@ -4,7 +4,7 @@ a Markov chain Monte Carlo algorithm.<br><br>
 
 BUILD COMMAND IN UNIX TERMINAL: 
 
-            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main
+            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main <br>
 
 The code is parallelized using OpenMP, in order to run a series of simulations for different values of the temperature.<br>
 This is properly set up during the program execution. To adjust the temperature interval and the number of tested temperatures,<br>
@@ -13,7 +13,13 @@ The program takes then two command line arguments: run it as<br>
 
             main <Ncycles> <L>
             
-where <Ncycles> is the number of Monte Carlo cycles you want, and <L> is the lattice size that you want.<br><br>
+where <Ncycles> is the number of Monte Carlo cycles you want, and <L> is the lattice size that you want.<br>
+As it is, the outputs one file for each temperature, storing the final estimates of the thermodynamical variables which we studied.<br>
+These files are ready to be merged with one simple command in the terminal, such as:<br>
+            
+            cat LatticeData_40_*.csv > tempdata40.csv
+            
+If you want to see how estimates evolve during the simulation, edit the main.cpp file at line
 
 
 We also provide a little bash script, called run_MC, which runs (and times) the code for different sizes of the grid, using 1MLN MC cycles.<br>
