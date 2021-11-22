@@ -4,7 +4,7 @@ a Markov chain Monte Carlo algorithm.<br><br>
 
 BUILD COMMAND IN UNIX TERMINAL: 
 
-            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main <br>
+            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main
 
 The code is parallelized using OpenMP, in order to run a series of simulations for different values of the temperature.<br>
 This is properly set up during the program execution. To adjust the temperature interval and the number of tested temperatures,<br>
