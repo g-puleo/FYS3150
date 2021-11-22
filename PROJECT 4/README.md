@@ -4,7 +4,7 @@ a Markov chain Monte Carlo algorithm.<br><br>
 
 BUILD COMMAND IN UNIX TERMINAL: 
 
-            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main <br>
+            g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main
 
 The code is parallelized using OpenMP, in order to run a series of simulations for different values of the temperature.<br>
 This is properly set up during the program execution. To adjust the temperature interval and the number of tested temperatures,<br>
@@ -19,13 +19,9 @@ These files are ready to be merged with one simple command in the terminal, such
             
             cat LatticeData_40_*.csv > tempdata40.csv
             
-If you want to see how estimates evolve during the simulation, edit the main.cpp file at line
-
+If you want to see how numerical estimates evolve during the simulation, see the comments at the end of the main.cpp file, and edit it properly.
 
 We also provide a little bash script, called run_MC, which runs (and times) the code for different sizes of the grid, using 1MLN MC cycles.<br>
-
-
-
 Python script: python3 temp_analysis.py <br>
 Reads 5 files: tempdata40.csv, tempdata50.csv, tempdata60.csv, tempdata80.csv, tempdata100.csv <br>
 
