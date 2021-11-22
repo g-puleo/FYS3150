@@ -18,7 +18,8 @@ As it is, the outputs one file for each temperature, storing the final estimates
 These files are ready to be merged with one simple command in the terminal, such as:<br>
             
             cat LatticeData_40_*.csv > tempdata40.csv
-            
+
+(this is just an example for the files output when L=40)<br>
 If you want to see how numerical estimates evolve during the simulation, see the comments at the end of the main.cpp file, and edit it properly.
 
 We also provide a little bash script, called run_MC, which runs (and times) the code for different sizes of the grid, using 1MLN MC cycles.<br>
