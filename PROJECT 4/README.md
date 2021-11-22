@@ -24,12 +24,30 @@ If you want to see how numerical estimates evolve during the simulation, see the
 
 We also provide a little bash script, called run_MC, which runs (and times) the code for different sizes of the grid, using 1MLN MC cycles.<br>
 <br>
-Python script run: python3 temp_analysis.py <br>
+The python code folder contains some codes which we used to analyze simulation outcomes.<br>
+They can read files contained in the "data" folder.<br>
+To analyze data for different temperatures, run: 
+
+	    	python3 temp_analysis.py
+	
 Reads five files: tempdata40.csv, tempdata50.csv, tempdata60.csv, tempdata80.csv, tempdata100.csv <br>
 Performs ordinary least squares regression to find optimal polynomial fits for the data. <br>
 The script yields six plots. Four of the plots are of average energy per spin, average magnetization per spin, <br>
 specific heat, and magnetic susceptibility, all against temperature. The last two are a fitted line against the <br>
-maxima of the specific heat and magnetic susceptibility against the inverse of the lattice size. 
+maxima of the specific heat and magnetic susceptibility against the inverse of the lattice size.<br><br>
+To see the speed-up factor analysis, run:<br>
+
+		python3 speedup.py
+
+Note that this file contains the timing data for repeated runs with L=7, Ncycles=500000.<br><br>
+We also provide two jupyter-notebooks:<br>
+MonteCarlo_analysis.ipynb contains the comparison against theoretical predictions for L=2<br>
+and the study of the burn-in time with L=20.<br>
+hist_plot.ipynb contains the histograms of the distribution of the energy per spin<br>
+
+
+
+
 
 
 
