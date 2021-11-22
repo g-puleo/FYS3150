@@ -1,9 +1,9 @@
 #!/bin/bash
 
-for GRIDSIZE in 50 70
+for GRIDSIZE in 40 60 80 100 #these are the size of the lattice that you want to test
 
 do 
 	
-	time ./main.exe 1000000 $GRIDSIZE
+	time ./main.exe 1000000 $GRIDSIZE #this runs the code for 1million Monte Carlo cycles
 	
 done
