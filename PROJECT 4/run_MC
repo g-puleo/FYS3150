@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for GRIDSIZE in 50 70
+
+do 
+	
+	time ./main.exe 1000000 $GRIDSIZE
+	
+done
