@@ -1,6 +1,6 @@
 # CODES AND PLOTS FOR PROJECT 4<br>
 This repository hosts files related to the simulation of a 2D spin lattice using the Ising Model and<br>
-a Markov chain Monte Carlo algorithm.<br<br>
+a Markov chain Monte Carlo algorithm.<br><br>
 
 BUILD COMMAND IN UNIX TERMINAL: g++ main.cpp src/Lattice.cpp -I include/ -larmadillo -fopenmp -O3 -o main <br>
 
