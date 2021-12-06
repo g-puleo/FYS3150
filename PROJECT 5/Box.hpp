@@ -15,7 +15,7 @@ public:
 
 	//these are useful matrices and vector to run the Crank Nicholson algorithm
 	arma::sp_cx_mat A_;
-	arma::cx_mat invA_;
+	//arma::cx_mat invA_;
 	arma::sp_cx_mat B_;
 	arma::cx_mat U_; //contains state of the system
 	arma::cx_vec a_; //a and b are handy vectors during the CN algorithm

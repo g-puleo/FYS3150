@@ -106,7 +106,7 @@ void Box::fill_a_and_b(std::complex<double> r, double time_step, arma::sp_mat V)
 			b_(sub2ind(ii,jj, M_-2)) = 1.0 - 4.0*r - z1*  (   (double)V(ii,jj) ) ;
 	 	}
 	}
-}// V(k)
+}// 
 
 
 
