@@ -4,31 +4,22 @@ Box::Box(int M, GaussParams gp)
 {
 		M_ = M; //dimension of box including boundary
 		h_ = 1.0/(M_-1);//space step
-//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
-	  A_ = arma::sp_cx_mat((M_-2)*(M_-2), (M_-2)*(M_-2));
-		//std::cout <<  "DEBUG: " error: arma::memory::acquire(): out of memoryerror: arma::memory::acquire(): out of memoryerror: arma::memory::acquire(): out of memoryerror: arma::memory::acquire(): out of memoryerror: arma::memory::acquire(): out of memory<< __LINE__ << std::endl;
-		//invA_ = arma::sp_cx_mat((M_-2)*(M_-2), (M_-2)*(M_-2));
-		//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
-
+	 	A_ = arma::sp_cx_mat((M_-2)*(M_-2), (M_-2)*(M_-2));
 		B_ = arma::sp_cx_mat((M_-2)*(M_-2), (M_-2)*(M_-2));
-		std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 		U_ = arma::cx_mat(M_, M_, arma::fill::zeros);//matrix containing the wave function
-		std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 		//initialize matrix using gaussian wave packet:
 
 		for (int ii = 1; ii<M_-1; ii++)
 			{
 				for (int jj = 1; jj<M_-1; jj++)
 				{
-					//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 					U_(ii, jj) = gaussian_wave_packet(ii*h_, jj*h_, gp);
 				}
 			}
-    normalizer(U_);
+    		normalizer(U_);
 		a_ = arma::cx_vec((M_-2)*(M_-2));
 		b_ = arma::cx_vec((M_-2)*(M_-2));
-	  //Uinternal_ = arma::cx_mat(M_-2, M_-2);
-	  b_tmp_ = arma::cx_vec((M_-2)*(M_-2) );
+	  	b_tmp_ = arma::cx_vec((M_-2)*(M_-2) );
 		u_vec_new_ = arma::cx_mat((M_-2)*(M_-2),1);
 }
 
@@ -56,20 +47,14 @@ void Box::prepare_matrices(std::complex<double> r)
 		// Filling diagonal submatrices
 		for (int i2=0; i2<size_sub; i2++) //this for loop fills the diagonal elements
 						{
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							A_(i1*size_sub + i2, i1*size_sub + i2) = a_(i1*size_sub + i2);
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							B_(i1*size_sub + i2, i1*size_sub + i2) = b_(i1*size_sub + i2);
 						}
 	  for (int i2=0; i2<size_sub-1; i2++) //fill sub and super diagonal elements of diagonal submatrix
 						{
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							A_(i1*size_sub + i2+1, i1*size_sub + i2) = -r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							A_(i1*size_sub + i2, i1*size_sub + i2+1) = -r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							B_(i1*size_sub + i2+1, i1*size_sub + i2) = r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							B_(i1*size_sub + i2, i1*size_sub + i2+1) = r;
 						}
 	}
@@ -78,50 +63,36 @@ void Box::prepare_matrices(std::complex<double> r)
 		{
 			for (int i2=0; i2<size_sub; i2++)
 			 			{ //filling diagonal elements of sub and superdiagonal submatrices
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
+							
 							A_((i1+1)*size_sub + i2, i1*size_sub + i2) = -r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							A_(i1*size_sub + i2, (i1+1)*size_sub + i2) = -r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							B_((i1+1)*size_sub + i2, i1*size_sub + i2) = r;
-							//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 							B_(i1*size_sub + i2, (i1+1)*size_sub + i2) = r;
 
 						}
 
 		}
 
-		//invA_ = arma::inv(A_);
 }
-void Box::fill_a_and_b(std::complex<double> r, double time_step, arma::sp_mat V)
+void Box::fill_a_and_b(std::complex<double> r, double time_step, arma::mat V)
 {
  arma::cx_double z1 = time_step*0.5j;
- //std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 	for (int ii=0; ii<(M_-2); ii++)
 	{
 		for (int jj=0; jj<M_-2; jj++)
 		{
-		//std::cout <<  "DEBUG: " << __LINE__ << std::endl;
 			a_(sub2ind(ii,jj, M_-2)) = 1.0 + 4.0*r + z1*  (   (double)V(ii,jj) ) ;
 			b_(sub2ind(ii,jj, M_-2)) = 1.0 - 4.0*r - z1*  (   (double)V(ii,jj) ) ;
 	 	}
 	}
-}// 
+}
 
 
 
 void Box::advance() {
-//	std::cout <<  "DEBUG: " << __LINE__ << std::endl;
-  //Uinternal_ = ;
-//	std::cout <<  "DEBUG: " << __LINE__ << std::endl;
+
 	b_tmp_ = B_*(U_(arma::span(1,M_-2), arma::span(1,M_-2)).as_col());
-//	std::cout <<  "DEBUG: " << __LINE__ << std::endl
-	//this is the correct line!!!!
 	arma::spsolve(u_vec_new_, A_, b_tmp_);
-//  u_vec_new_ = invA_ * b_tmp_;
-//	std::cout << u_vec_new.size() << std::endl;
-//	std::cout <<  "DEBUG: " << __LINE__ << std::endl;
-  u_vec_new_.reshape(M_-2,M_-2);
+  	u_vec_new_.reshape(M_-2,M_-2);
 	U_(arma::span(1,M_-2), arma::span(1,M_-2)) = u_vec_new_;
-	//check_norm(u_new);
 }
