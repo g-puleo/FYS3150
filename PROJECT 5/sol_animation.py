@@ -44,18 +44,18 @@ plt.figure()
 plt.plot(y, prob_givenxt, label=r'$p(y|x=0.8, t=0.002)$')
 plt.xlabel("y", fontsize=fsize)
 plt.ylabel(r'$p(y|x=0.8, t=0.002)$', fontsize=fsize)
-plt.legend(fontsize=fsize)
+#plt.legend(fontsize=fsize)
 plt.xticks(fontsize=fsize)
 plt.yticks(fontsize=fsize)
 plt.tight_layout()
 plt.grid(True)
-plt.savefig("Py.pdf", format="pdf")
+plt.savefig("Py_SS.pdf", format="pdf")
 
 plt.figure()
 plt.plot(y, prob_givenyt, label=r'$p(x|y=0.5, t=0.002)$')
 plt.xlabel("x", fontsize=fsize)
 plt.ylabel(r'$p(x|y=0.5, t=0.002)$', fontsize=fsize)
-plt.legend(fontsize=fsize)
+#plt.legend(fontsize=fsize)
 plt.xticks(fontsize=fsize)
 plt.yticks(fontsize=fsize)
 plt.tight_layout()
@@ -80,7 +80,7 @@ plt.xticks(fontsize= fsize)
 plt.yticks(fontsize= fsize)
 
 cbar = fig.colorbar(img, ax=axes)
-cbar.set_label(r'$|\Psi(x,y,t)|^2$', fontsize=fsize)
+cbar.set_label(r'$|u(x,y,t)|^2$', fontsize=fsize)
 cbar.ax.tick_params(labelsize=fsize)
 
 time_txt = plt.text(0.95, 0.95, "t = {:.3e}".format(t_min), color="white", 
@@ -103,7 +103,7 @@ def animation(i):
 
 # Use matplotlib.animation.FuncAnimation to put it all together
 anim = FuncAnimation(fig, animation, interval=1, frames=np.arange(0, Nt, 1), repeat=False, blit=0)
-anim.save("No_slit.gif", writer="ffmpeg", fps=24)
+anim.save("Test.gif", writer="ffmpeg", fps=24)
 # Run the animation!
 plt.show()
 
@@ -121,28 +121,55 @@ def plot_imshow(data, extent_vec, colours, fsize, figure_name, colourbar_label):
 	cbar.set_label(colourbar_label, fontsize=fsize)
 	cbar.ax.tick_params(labelsize=fsize)
 	plt.savefig(figure_name, format="pdf")
+	
+def plot_imshow_side_by_side(data1, data2, extent_vec, colours, fsize, figure_name, colourbar_label): 
+	fig = plt.figure()
+	ax1 = fig.add_subplot(1,2,1) 
+	ax1 = plt.gca()
+	mynorm = matplotlib.cm.colors.Normalize(vmin=np.min(data1), vmax=np.max(data1))
+	img = ax1.imshow(data1, extent=extent_vec, cmap=plt.get_cmap(colours), norm=mynorm)
+	plt.xlabel("x", fontsize=fsize)
+	plt.ylabel("y", fontsize=fsize)
+	plt.xticks(fontsize=fsize)
+	plt.yticks(fontsize=fsize)
+	ax2 = fig.add_subplot(1,2,2)
+	ax2 = plt.gca()
+	img2 = ax2.imshow(data2, extent=extent_vec, cmap=plt.get_cmap(colours), norm=mynorm)
+	plt.xlabel("x", fontsize=fsize)
+	plt.ylabel("y", fontsize=fsize)
+	plt.xticks(fontsize=fsize)
+	plt.yticks(fontsize=fsize)
+	cbar = fig.colorbar(img2, ax=ax1)
+	cbar.set_label(colourbar_label, fontsize=fsize)
+	cbar.ax.tick_params(labelsize=fsize)
+	plt.savefig(figure_name, format="pdf")
+	
 
 # imshows
 colour_scheme = "inferno"
 # Probability at different time steps
-plot_imshow(psi_t2[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_0.pdf", r'$|\Psi(x,y,t=0.000)|^2$')
-plot_imshow(psi_t2[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_1.pdf", r'$|\Psi(x,y,t=0.001)|^2$')
-plot_imshow(psi_t2[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_2.pdf", r'$|\Psi(x,y,t=0.002)|^2$')
+plot_imshow(psi_t2[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_0.pdf", r'$|u(x,y,t=0.000)|^2$')
+plot_imshow(psi_t2[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_1.pdf", r'$|u(x,y,t=0.001)|^2$')
+plot_imshow(psi_t2[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_P_2.pdf", r'$|u(x,y,t=0.002)|^2$')
 
 # Real part of wavefunction at different time steps
-plot_imshow(real_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_0.pdf", r'$Re(\Psi(x,y,t=0.000))$')
-plot_imshow(real_psi[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_1.pdf", r'$Re(\Psi(x,y,t=0.001))$')
-plot_imshow(real_psi[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_2.pdf", r'$Re(\Psi(x,y,t=0.002))$')
+plot_imshow(real_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_0.pdf", r'Re$(u(x,y,t=0.000))$')
+plot_imshow(real_psi[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_1.pdf", r'Re$(u(x,y,t=0.001))$')
+plot_imshow(real_psi[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_R_2.pdf", r'Re$(u(x,y,t=0.002))$')
 
 # Real part of wavefunction at different time steps
-plot_imshow(imag_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_0.pdf", r'$Im(\Psi(x,y,t=0.000))$')
-plot_imshow(imag_psi[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_1.pdf", r'$Im(\Psi(x,y,t=0.001))$')
-plot_imshow(imag_psi[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_2.pdf", r'$Im(\Psi(x,y,t=0.002))$')
+plot_imshow(imag_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_0.pdf", r'Im$(u(x,y,t=0.000))$')
+plot_imshow(imag_psi[40], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_1.pdf", r'Im$(u(x,y,t=0.001))$')
+plot_imshow(imag_psi[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_I_2.pdf", r'Im$(u(x,y,t=0.002))$')
+
 
 """
+plot_imshow_side_by_side(real_psi[0], imag_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_IR_0.pdf", r'$\Psi(x,y,t=0.000)$')
+
+
 # Plotting total probability against time
 plt.figure()
-plt.plot(tpoints, abs(sum_of_probabilities-1), label=r'$\Delta=\sum_{x,y\in[0,1]}|\Psi(x,y,t)|^2-1$')
+plt.plot(tpoints, abs(sum_of_probabilities-1), label=r'$\Delta=\sum_{\ell, j}|u_{\ell,j}|^2-1$')
 plt.xlabel("Time, t", fontsize=fsize) 
 plt.ylabel(r'$|\Delta|$', fontsize=fsize)
 plt.xticks([0.000, 0.002, 0.004, 0.006, 0.008], fontsize=fsize)
