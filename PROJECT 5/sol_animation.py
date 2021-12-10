@@ -36,10 +36,12 @@ print(psi_t2.shape)
 x,y = np.meshgrid(xpoints, ypoints, sparse=True)
 fsize = 15
 # Plotting 1D probability density behind slits
+
 prob_givent = psi_t2[80]
 prob_givenyt = prob_givent[100, :]
 prob_givenxt = prob_givent[:, 160]
 prob_givenxt = prob_givenxt/np.sum(prob_givenxt)
+# Py given x and t
 plt.figure()
 plt.plot(y, prob_givenxt, label=r'$p(y|x=0.8, t=0.002)$')
 plt.xlabel("y", fontsize=fsize)
@@ -49,8 +51,8 @@ plt.xticks(fontsize=fsize)
 plt.yticks(fontsize=fsize)
 plt.tight_layout()
 plt.grid(True)
-plt.savefig("Py_SS.pdf", format="pdf")
-
+plt.savefig("Py.pdf", format="pdf")
+# Px given y and t
 plt.figure()
 plt.plot(y, prob_givenyt, label=r'$p(x|y=0.5, t=0.002)$')
 plt.xlabel("x", fontsize=fsize)
@@ -107,7 +109,7 @@ anim.save("Test.gif", writer="ffmpeg", fps=24)
 # Run the animation!
 plt.show()
 
-
+# Function that plots a colourmap for input data. 
 def plot_imshow(data, extent_vec, colours, fsize, figure_name, colourbar_label): 
 	fig = plt.figure()
 	axes = plt.gca()
@@ -122,28 +124,7 @@ def plot_imshow(data, extent_vec, colours, fsize, figure_name, colourbar_label):
 	cbar.ax.tick_params(labelsize=fsize)
 	plt.savefig(figure_name, format="pdf")
 	
-def plot_imshow_side_by_side(data1, data2, extent_vec, colours, fsize, figure_name, colourbar_label): 
-	fig = plt.figure()
-	ax1 = fig.add_subplot(1,2,1) 
-	ax1 = plt.gca()
-	mynorm = matplotlib.cm.colors.Normalize(vmin=np.min(data1), vmax=np.max(data1))
-	img = ax1.imshow(data1, extent=extent_vec, cmap=plt.get_cmap(colours), norm=mynorm)
-	plt.xlabel("x", fontsize=fsize)
-	plt.ylabel("y", fontsize=fsize)
-	plt.xticks(fontsize=fsize)
-	plt.yticks(fontsize=fsize)
-	ax2 = fig.add_subplot(1,2,2)
-	ax2 = plt.gca()
-	img2 = ax2.imshow(data2, extent=extent_vec, cmap=plt.get_cmap(colours), norm=mynorm)
-	plt.xlabel("x", fontsize=fsize)
-	plt.ylabel("y", fontsize=fsize)
-	plt.xticks(fontsize=fsize)
-	plt.yticks(fontsize=fsize)
-	cbar = fig.colorbar(img2, ax=ax1)
-	cbar.set_label(colourbar_label, fontsize=fsize)
-	cbar.ax.tick_params(labelsize=fsize)
-	plt.savefig(figure_name, format="pdf")
-	
+
 
 # imshows
 colour_scheme = "inferno"
@@ -164,8 +145,6 @@ plot_imshow(imag_psi[80], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p
 
 
 """
-plot_imshow_side_by_side(real_psi[0], imag_psi[0], [x_min, x_max, y_min, y_max], colour_scheme, fsize, "p8_IR_0.pdf", r'$\Psi(x,y,t=0.000)$')
-
 
 # Plotting total probability against time
 plt.figure()
