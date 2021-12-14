@@ -11,6 +11,13 @@ using namespace std;
 int main(int argc, const char* argv[])
 
 {
+
+	if (argc!=3) {
+		cout << "ERROR. PROPER USE: " << argv[0] << " <init_cond> <potential>" << endl;
+		cout << "<init_conds> must be a .csv file containing the initial conditions." << endl;
+		cout << "<potential> must be a .dat file containing the shape of the potential." << endl;
+		exit(1);
+	}
 	int M = 201; //size of box
 
 	//argv[1] is the name of the .csv file containing gaussian wave packet (gwp)and other parameters
@@ -37,7 +44,7 @@ int main(int argc, const char* argv[])
 	//argv[2] is the name of the .dat file containing the potential matrix
 	string potential = argv[2];
 	V.load(potential, raw_ascii);
-	V = V*V0;
+	V = V*V0; //scale the potential using the input parameter V0
 
 	//prepare matrices A and B, first filling vectors a and b.
 	b1.fill_a_and_b(r, time_step, V);
