@@ -15,8 +15,6 @@ Once you have run the program, you can visualize results by just running:<br>
 		python3 sol_animation.py
 
 This python script saves the animation of the simulation to a .gif file. <br>
-Some examples are available in the Animations folder in this repository.
-
-		
+Some examples are available in the Animations folder in this repository.<br> 
 		
 
