@@ -105,7 +105,7 @@ def animation(i):
 
 # Use matplotlib.animation.FuncAnimation to put it all together
 anim = FuncAnimation(fig, animation, interval=1, frames=np.arange(0, Nt, 1), repeat=False, blit=0)
-anim.save("Test.gif", writer="ffmpeg", fps=24)
+anim.save("tunnel.gif", writer="ffmpeg", fps=24)
 # Run the animation!
 plt.show()
 

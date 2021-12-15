@@ -14,7 +14,7 @@ int main(int argc, const char* argv[])
 
 	if (argc!=3) {
 		cout << "ERROR. PROPER USE: " << argv[0] << " <init_cond> <potential>" << endl;
-		cout << "<init_conds> must be a .csv file containing the initial conditions." << endl;
+		cout << "<init_cond> must be a .csv file containing the initial conditions." << endl;
 		cout << "<potential> must be a .dat file containing the shape of the potential." << endl;
 		exit(1);
 	}
