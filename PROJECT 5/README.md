@@ -5,6 +5,7 @@ build command in UNIX terminal:<br>
 		g++ main.cpp src/Box.cpp src/utils.cpp -I include/ -larmadillo  -o main
 
 run:<br>
+
 		main initial_conditions.csv PotentialFiles/filename.dat
 		
 initial_conditions.csv is a .csv file containing the parameters of the problem.<br>
